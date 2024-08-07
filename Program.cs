@@ -15,7 +15,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://portfolio-webapi-hkh9cjbkepbha3gu.eastus-01.azurewebsites.net")
+            policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://orange-desert-0bb93bb0f.5.azurestaticapps.net")
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
