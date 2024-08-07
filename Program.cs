@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 var Configuration = builder.Configuration;
 
 builder.Services.AddDbContext<TodoContext>(options =>
-        options.UseNpgsql(Configuration.GetConnectionString("TodoDB")));
+        options.UseNpgsql(Configuration.GetConnectionString("portfolioDB")));
 
 // builder.Services.AddSqlServer<TodoContext>(connectionString);
 
