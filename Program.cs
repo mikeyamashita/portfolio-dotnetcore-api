@@ -15,7 +15,12 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200", "https://localhost:4200", "https://orange-desert-0bb93bb0f.5.azurestaticapps.net")
+            policy.WithOrigins("https://localhost:8001",
+                                "http://localhost:4200",
+                                "https://localhost:4200",
+                                "https://localhost:4201",
+                                "http://localhost:4201",
+                                "https://orange-desert-0bb93bb0f.5.azurestaticapps.net")
             .AllowAnyHeader()
             .AllowAnyMethod();
         });

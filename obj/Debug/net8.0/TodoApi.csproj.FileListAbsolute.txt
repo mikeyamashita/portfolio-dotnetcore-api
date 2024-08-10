@@ -526,3 +526,8 @@
 /Users/mikey/Projects/portfolio-api/obj/Debug/net8.0/TodoApi.genruntimeconfig.cache
 /Users/mikey/Projects/portfolio-api/obj/Debug/net8.0/ref/TodoApi.dll
 /Users/mikey/Projects/portfolio-api/obj/Debug/net8.0/TodoApi.sourcelink.json
+/Users/mikey/Projects/portfolio-api/bin/Debug/net8.0/published/web.config
+/Users/mikey/Projects/portfolio-api/bin/Debug/net8.0/published/appsettings.Development.json
+/Users/mikey/Projects/portfolio-api/bin/Debug/net8.0/published/appsettings.json
+/Users/mikey/Projects/portfolio-api/bin/Debug/net8.0/published/TodoApi.deps.json
+/Users/mikey/Projects/portfolio-api/bin/Debug/net8.0/published/TodoApi.runtimeconfig.json
