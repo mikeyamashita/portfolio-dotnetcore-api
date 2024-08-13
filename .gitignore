@@ -1,4 +1,4 @@
-/published
-/bin
-/bin/Release
-/obj/Release
+published/
+bin/
+obj/
+Debug/
