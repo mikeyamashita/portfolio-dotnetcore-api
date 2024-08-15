@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TodoApi.Models;
@@ -11,9 +12,11 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20240815163830_LinkControllert")]
+    partial class LinkControllert
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,6 +172,9 @@ namespace TodoApi.Migrations
                     b.Property<long?>("ProjectId")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("Project_Id")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
@@ -176,7 +182,7 @@ namespace TodoApi.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Links", "public");
+                    b.ToTable("Link", "public");
                 });
 
             modelBuilder.Entity("TodoApi.Models.Project", b =>

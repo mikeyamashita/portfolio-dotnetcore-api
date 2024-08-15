@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TodoApi.Models;
 
 namespace TodoApi.Models;
 
@@ -14,9 +15,17 @@ public class TodoContext : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
         builder.HasDefaultSchema("public");
+
+        // builder.Entity<Project>()
+        //     .HasMany(e => e.Links)
+        //     .WithOne(e => e.Project)
+        //     .HasForeignKey(e => e.ProjectId)
+        //     .IsRequired(false);
+
     }
 
     public DbSet<TodoItem> TodoItems { get; set; } = null!;
     public DbSet<SPTransaction> SPTransactions { get; set; } = null!;
     public DbSet<Project> Projects { get; set; } = null!;
+    public DbSet<Link> Links { get; set; } = default!;
 }

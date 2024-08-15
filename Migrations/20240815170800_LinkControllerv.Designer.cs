@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TodoApi.Models;
@@ -11,9 +12,11 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20240815170800_LinkControllerv")]
+    partial class LinkControllerv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,35 +160,38 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("TodoApi.Models.Link", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("LinkId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("LinkId"));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<long?>("ProjectId")
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("integer");
+
+                    b.Property<long?>("ProjectId1")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("LinkId");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectId1");
 
-                    b.ToTable("Links", "public");
+                    b.ToTable("Link", "public");
                 });
 
             modelBuilder.Entity("TodoApi.Models.Project", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("ProjectId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("ProjectId"));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -211,7 +217,7 @@ namespace TodoApi.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("ProjectId");
 
                     b.ToTable("Projects", "public");
                 });
@@ -406,7 +412,7 @@ namespace TodoApi.Migrations
                 {
                     b.HasOne("TodoApi.Models.Project", "Project")
                         .WithMany("Links")
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId1");
 
                     b.Navigation("Project");
                 });

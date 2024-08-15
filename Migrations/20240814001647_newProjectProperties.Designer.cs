@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TodoApi.Models;
@@ -11,9 +12,11 @@ using TodoApi.Models;
 namespace TodoApi.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20240814001647_newProjectProperties")]
+    partial class newProjectProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,20 +166,22 @@ namespace TodoApi.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<long?>("ProjectId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Url")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Links", "public");
+                    b.ToTable("Link", "public");
                 });
 
             modelBuilder.Entity("TodoApi.Models.Project", b =>
@@ -404,11 +409,9 @@ namespace TodoApi.Migrations
 
             modelBuilder.Entity("TodoApi.Models.Link", b =>
                 {
-                    b.HasOne("TodoApi.Models.Project", "Project")
+                    b.HasOne("TodoApi.Models.Project", null)
                         .WithMany("Links")
                         .HasForeignKey("ProjectId");
-
-                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("TodoApi.Models.Project", b =>

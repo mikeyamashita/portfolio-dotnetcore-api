@@ -11,23 +11,23 @@ namespace TodoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class ProjectController : ControllerBase
     {
         private readonly TodoContext _context;
 
-        public ProjectsController(TodoContext context)
+        public ProjectController(TodoContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Project
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             return await _context.Projects.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Project/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(long id)
         {
@@ -38,10 +38,11 @@ namespace TodoApi.Controllers
                 return NotFound();
             }
 
+            await _context.Entry(project).Collection(i => i.Links).LoadAsync();
             return project;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Project/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(long id, Project project)
@@ -72,7 +73,7 @@ namespace TodoApi.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Project
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
@@ -83,7 +84,7 @@ namespace TodoApi.Controllers
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Project/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(long id)
         {

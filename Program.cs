@@ -15,12 +15,13 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            policy.WithOrigins("https://localhost:8001",
-                                "http://localhost:4200",
-                                "https://localhost:4200",
-                                "https://localhost:4201",
-                                "http://localhost:4201",
-                                "https://orange-desert-0bb93bb0f.5.azurestaticapps.net")
+            policy.WithOrigins("http://localhost:4200", //dev local
+                                "https://localhost:4200", //dev local
+                                "http://192.168.50.173:4200", //dev external dotnet run --urls http://0.0.0.0:7254 
+                                "https://192.168.50.173:4200", //dev external dotnet run --urls http://0.0.0.0:7254 
+                                "https://localhost:4201", //staging docker
+                                "http://localhost:4201", //staging docker
+                                "https://orange-desert-0bb93bb0f.5.azurestaticapps.net") //prod azure
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
