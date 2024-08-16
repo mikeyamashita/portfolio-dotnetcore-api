@@ -24,7 +24,14 @@ namespace TodoApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Include("Links").ToListAsync();
+            // projects.Include("Links");
+
+            // for (let project of projects.Include("Links"))
+            // {
+            //     await _context.Entry(project).Collection(i => i.Links).LoadAsync();
+            // };
+            return projects;
         }
 
         // GET: api/Project/5
