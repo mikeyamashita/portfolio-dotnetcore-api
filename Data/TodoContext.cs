@@ -15,13 +15,6 @@ public class TodoContext : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
         builder.HasDefaultSchema("public");
-
-        // builder.Entity<Project>()
-        //     .HasMany(e => e.Links)
-        //     .WithOne(e => e.Project)
-        //     .HasForeignKey(e => e.ProjectId)
-        //     .IsRequired(false);
-
     }
 
     public DbSet<TodoItem> TodoItems { get; set; } = null!;

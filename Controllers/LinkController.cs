@@ -77,7 +77,16 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Link>> PostLink(Link link)
         {
-            _context.Links.Add(link);
+            var newLink = new Link();
+            if (link.Id < 0)
+            {
+                newLink.Name = link.Name;
+                newLink.Url = link.Url;
+                newLink.ProjectId = link.ProjectId;
+                _context.Links.Add(newLink);
+            }
+            else
+                _context.Links.Add(link);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetLink", new { id = link.Id }, link);

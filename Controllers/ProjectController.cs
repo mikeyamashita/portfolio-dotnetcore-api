@@ -25,12 +25,6 @@ namespace TodoApi.Controllers
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             var projects = await _context.Projects.Include("Links").ToListAsync();
-            // projects.Include("Links");
-
-            // for (let project of projects.Include("Links"))
-            // {
-            //     await _context.Entry(project).Collection(i => i.Links).LoadAsync();
-            // };
             return projects;
         }
 
@@ -47,6 +41,13 @@ namespace TodoApi.Controllers
 
             await _context.Entry(project).Collection(i => i.Links).LoadAsync();
             return project;
+        }
+
+        // GET: api/Project/5/Links
+        [HttpGet("{id}/Links")]
+        public async Task<ActionResult<IEnumerable<Link>>> GetLinksByProjectId(long id)
+        {
+            return await _context.Links.Where(l => l.ProjectId == id).ToListAsync();
         }
 
         // PUT: api/Project/5
