@@ -2,3 +2,5 @@ published/
 bin/
 obj/
 Debug/
+
+.fake

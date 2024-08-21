@@ -21,7 +21,8 @@ builder.Services.AddCors(options =>
                                 "https://192.168.50.173:4200", //dev external dotnet run --urls http://0.0.0.0:7254 
                                 "https://localhost:4201", //staging docker
                                 "http://localhost:4201", //staging docker
-                                "https://orange-desert-0bb93bb0f.5.azurestaticapps.net") //prod azure
+                                "https://orange-desert-0bb93bb0f.5.azurestaticapps.net", //prod azure api
+                                "https://portfolio-webapi-hkh9cjbkepbha3gu.eastus-01.azurewebsites.net") //prod azure frontend
             .AllowAnyHeader()
             .AllowAnyMethod();
         });

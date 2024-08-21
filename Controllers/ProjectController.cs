@@ -24,6 +24,7 @@ namespace TodoApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
+            // await Task.Delay(2000);
             var projects = await _context.Projects.Include("Links").ToListAsync();
             return projects;
         }
@@ -32,6 +33,7 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(long id)
         {
+            // await Task.Delay(2000);
             var project = await _context.Projects.FindAsync(id);
 
             if (project == null)
@@ -55,6 +57,7 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutProject(long id, Project project)
         {
+            // await Task.Delay(2000);
             if (id != project.Id)
             {
                 return BadRequest();
@@ -86,6 +89,7 @@ namespace TodoApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
+            // await Task.Delay(2000);
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
 
