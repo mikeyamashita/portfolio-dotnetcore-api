@@ -22,7 +22,10 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Update Database
-        run: dotnet ef database update
+        run: |
+          dotnet tool install --global dotnet-ef
+          dotnet tool restore
+          dotnet ef database update -c TodoContext -p TodoApi -s TodoApiFactory
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
