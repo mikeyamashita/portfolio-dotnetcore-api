@@ -1,14 +1,11 @@
-using TodoApi.Services;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-
-// https://medium.com/@saisiva249/how-to-configure-postgres-database-for-a-net-a2ee38f29372
+// using Azure.Identity;
+// using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
-// var connectionString = builder.Configuration.GetConnectionString("TodoDB") ?? "Data Source=Todo.db";
 
 builder.Services.AddCors(options =>
 {
@@ -28,18 +25,25 @@ builder.Services.AddCors(options =>
         });
 });
 
+
 var Configuration = builder.Configuration;
 
-builder.Services.AddDbContext<TodoContext>(options =>
-        options.UseNpgsql(Configuration.GetConnectionString("portfolioDB")));
+// Console.WriteLine(Configuration.GetSection("ConnectionStrings").GetSection("portfolioDB"));
 
-// builder.Services.AddSqlServer<TodoContext>(connectionString);
+var isDevelopment = builder.Environment.IsDevelopment();
+if (isDevelopment)
+{
+    builder.Services.AddDbContext<TodoContext>(options =>
+        options.UseNpgsql(Configuration.GetConnectionString("portfolioDBDev")));
+}
+else
+{
+    builder.Services.AddDbContext<TodoContext>(options =>
+        options.UseNpgsql(Configuration.GetConnectionString("portfolioDB")));
+}
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-// builder.Services.AddDbContext<TodoContext>(opt =>
-//     opt.UseInMemoryDatabase("TodoItem"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -56,24 +60,14 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication();
-// .AddCookie(IdentityConstants.ApplicationScheme)
-// .AddBearerToken(IdentityConstants.BearerScheme);
 
 builder.Services.AddIdentityApiEndpoints<User>()
     .AddEntityFrameworkStores<TodoContext>();
-// .AddApiEndpoints();
+
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
 app.UseSwagger();
 app.UseSwaggerUI();
-// app.ApplyMigrations();
-// }
-
-// app.UseHttpsRedirection();
 
 app.MapIdentityApi<User>();
 
@@ -82,7 +76,5 @@ app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
-
-// app.MapIdentityApi<User>();
 
 app.Run();
