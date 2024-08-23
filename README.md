@@ -9,7 +9,7 @@ docker build -t todoapi .
 publish container
 docker run -d -p 5001:8080 --name TodoApi TodoApi -->
 
-//https://github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md
+//github.com/dotnet/dotnet-docker/blob/main/samples/run-aspnetcore-https-development.md
 
 //create certificate
 macos/linux:
