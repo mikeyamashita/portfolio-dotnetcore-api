@@ -29,7 +29,7 @@ builder.Services.AddCors(options =>
 var Configuration = builder.Configuration;
 
 // Console.WriteLine(Configuration.GetSection("ConnectionStrings").GetSection("portfolioDB"));
-
+// dotnet user-secrets list
 var isDevelopment = builder.Environment.IsDevelopment();
 if (isDevelopment)
 {
